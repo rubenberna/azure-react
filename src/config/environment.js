@@ -1,0 +1,7 @@
+const ENV = process.env
+
+export const {
+  REACT_APP_APP_ID: APP_ID,
+  REACT_APP_REDIRECT_URI: REDIRECT_URI,
+  REACT_APP_MSAL_SCOPES: SCOPES
+} = ENV
