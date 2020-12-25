@@ -18,7 +18,7 @@ import { Context as AuthContext } from '../../context/AuthContext'
 export const MainNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { state: { username } } = useContext(AuthContext)
-  
+
   const toggle = () => setIsOpen(!isOpen);
 
   return (
