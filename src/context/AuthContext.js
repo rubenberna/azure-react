@@ -9,16 +9,23 @@ const TYPES = {
   SET_USER: 'auth/setUser'
 };
 
+const initialState = {
+  isAuthenticated: false,
+  token: null,
+  errorMessage: '',
+  username: null
+}
+
 const authReducer = (state, action) => {
   switch (action.type) {
     case TYPES.ADD_ERROR:
       return {...state, errorMessage: action.payload};
     case TYPES.LOGIN:
-      return {isAuthenticated: true, errorMessage: '', token: action.payload};
+      return {...state, isAuthenticated: true, errorMessage: '', token: action.payload};
     case TYPES.CLEAR_ERROR:
       return {...state, errorMessage: ''};
     case TYPES.SIGN_OUT:
-      return {isAuthenticated: false, token: null, errorMessage: ""};
+      return initialState;
     case TYPES.SET_USER:
       return {...state, username: action.payload}
     default:
@@ -49,8 +56,11 @@ const getProfile = (dispatch) => async () => {
   })
 };
 
+
+// Todo: signout from FE
+
 export const {Provider, Context} = createDataContext(
   authReducer,
   {signIn, getProfile},
-  {username: '', isAuthenticated: false, token: null, errorMessage: ''}
+  initialState
 );
