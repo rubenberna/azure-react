@@ -17,7 +17,9 @@ import { Context as AuthContext } from '../../context/AuthContext'
 
 export const MainNav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { state: { username } } = useContext(AuthContext)
+  const { state: { username, isAuthenticated, errorMessage }, signOut } = useContext(AuthContext)
+
+  console.log(errorMessage);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -52,6 +54,7 @@ export const MainNav = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
+          { isAuthenticated && <NavbarText onClick={signOut}>Sign out</NavbarText> }
           <NavbarText>{username ? username : 'Sign in'}</NavbarText>
         </Collapse>
       </Navbar>

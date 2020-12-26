@@ -1,9 +1,10 @@
 import { PublicClientApplication } from '@azure/msal-browser';
 import { APP_ID, REDIRECT_URI, SCOPES } from '../config/environment';
 
-export const MSAL_CONFIG = {
+const MSAL_CONFIG = {
   auth: {
     clientId: APP_ID,
+    authority: 'https://login.microsoftonline.com/common',
     redirectUri: REDIRECT_URI
   },
   cache: {
@@ -19,6 +20,7 @@ export const scopeRequestConfig = {
 
 export const getAccessToken = async () => {
   const allAccounts = azureProvider.getAllAccounts();
+
   try {
     if (allAccounts?.length <= 0) throw new Error('login_required');
     const silentResult = await azureProvider.acquireTokenSilent({

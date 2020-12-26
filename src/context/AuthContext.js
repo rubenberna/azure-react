@@ -49,18 +49,30 @@ const signIn = (dispatch) => async () => {
 };
 
 const getProfile = (dispatch) => async () => {
-  const accounts = azureProvider.getAllAccounts();
-  dispatch({
-    type: TYPES.SET_USER,
-    payload: accounts[0].name
-  })
+  // const account = azureProvider.getAccount();
+  // console.log(account);
+
+  // if (account) {
+  //   dispatch({
+  //     type: TYPES.SET_USER,
+  //     payload: accounts[0].name
+  //   })
+  // }
 };
+
+const signOut = (dispatch) => async () => {
+  await azureProvider.logout()
+
+  dispatch({
+    type: TYPES.SIGN_OUT
+  })
+}
 
 
 // Todo: signout from FE
 
 export const {Provider, Context} = createDataContext(
   authReducer,
-  {signIn, getProfile},
+  {signIn, getProfile, signOut},
   initialState
 );

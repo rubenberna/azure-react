@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Context as AuthContext } from '../context/AuthContext';
 
 export const App = () => {
-  const {signIn, getProfile} = useContext(AuthContext);
+  const {signIn, getProfile, signOut } = useContext(AuthContext);
 
   useEffect(() => {
     signIn();
