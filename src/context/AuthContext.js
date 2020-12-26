@@ -14,65 +14,46 @@ const initialState = {
   token: null,
   errorMessage: '',
   username: null
-}
+};
 
 const authReducer = (state, action) => {
   switch (action.type) {
     case TYPES.ADD_ERROR:
       return {...state, errorMessage: action.payload};
     case TYPES.LOGIN:
-      return {...state, isAuthenticated: true, errorMessage: '', token: action.payload};
+      return {username: action.payload.name, isAuthenticated: true, errorMessage: '', token: action.payload.token};
     case TYPES.CLEAR_ERROR:
       return {...state, errorMessage: ''};
     case TYPES.SIGN_OUT:
       return initialState;
     case TYPES.SET_USER:
-      return {...state, username: action.payload}
+      return {...state, username: action.payload};
     default:
       return state;
   }
 };
 
 const signIn = (dispatch) => async () => {
-  try {
-    const firstTimeRefresh = await getAccessToken();
-    dispatch({
-      type: TYPES.LOGIN,
-      payload: firstTimeRefresh
-    });
-  } catch (err) {
-    dispatch({
-      type: TYPES.ADD_ERROR,
-      payload: err
-    });
-  }
-};
-
-const getProfile = (dispatch) => async () => {
-  // const account = azureProvider.getAccount();
-  // console.log(account);
-
-  // if (account) {
-  //   dispatch({
-  //     type: TYPES.SET_USER,
-  //     payload: accounts[0].name
-  //   })
-  // }
+  const {token, name} = await getAccessToken();
+  dispatch({
+    type: TYPES.LOGIN,
+    payload: {
+      token,
+      name
+    }
+  });
 };
 
 const signOut = (dispatch) => async () => {
-  await azureProvider.logout()
+  await azureProvider.logout();
 
   dispatch({
     type: TYPES.SIGN_OUT
-  })
-}
-
-
-// Todo: signout from FE
+  });
+};
 
 export const {Provider, Context} = createDataContext(
   authReducer,
-  {signIn, getProfile, signOut},
+  {signIn, signOut},
   initialState
 );
