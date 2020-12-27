@@ -1,5 +1,5 @@
 import createDataContext from './createDataContext';
-import { azureProvider, getAccessToken } from '../utils/security.util';
+import { azureProvider, getAccessToken, getRolesFromParsedJwt, parseJwt } from '../utils/security.util';
 
 const TYPES = {
   ADD_ERROR: 'auth/add_error',
@@ -12,8 +12,9 @@ const TYPES = {
 const initialState = {
   isAuthenticated: false,
   token: null,
-  errorMessage: '',
-  username: null
+  username: null,
+  role: null,
+  errorMessage: ''
 };
 
 const authReducer = (state, action) => {
@@ -21,7 +22,7 @@ const authReducer = (state, action) => {
     case TYPES.ADD_ERROR:
       return {...state, errorMessage: action.payload};
     case TYPES.LOGIN:
-      return {username: action.payload.name, isAuthenticated: true, errorMessage: '', token: action.payload.token};
+      return {username: action.payload.name, isAuthenticated: true, errorMessage: '', token: action.payload.token, role: action.payload.role};
     case TYPES.CLEAR_ERROR:
       return {...state, errorMessage: ''};
     case TYPES.SIGN_OUT:
@@ -34,12 +35,15 @@ const authReducer = (state, action) => {
 };
 
 const signIn = (dispatch) => async () => {
-  const {token, name} = await getAccessToken();
+  const {token, account, idToken} = await getAccessToken();
+  const parsedJWT = parseJwt(idToken)
+  const userRole = getRolesFromParsedJwt(parsedJWT)
   dispatch({
     type: TYPES.LOGIN,
     payload: {
       token,
-      name
+      name: account.name,
+      role: userRole
     }
   });
 };

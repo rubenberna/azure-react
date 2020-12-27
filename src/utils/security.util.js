@@ -1,11 +1,12 @@
 import { PublicClientApplication } from '@azure/msal-browser';
-import { APP_ID, REDIRECT_URI, SCOPES } from '../config/environment';
+import { APP_ID, AZURE_AUTHORITY, SCOPES } from '../config/environment';
 
 const MSAL_CONFIG = {
   auth: {
     clientId: APP_ID,
-    redirectUri: REDIRECT_URI,
-    postLogoutRedirectUri: REDIRECT_URI,
+    redirectUri: window.location.origin,
+    authority: AZURE_AUTHORITY,
+    postLogoutRedirectUri: window.location.origin,
   },
 };
 
@@ -25,7 +26,8 @@ export const getAccessToken = async () => {
 
     return {
       token: silentResult.accessToken,
-      name: allAccounts[0].name
+      idToken: silentResult.idToken,
+      account: allAccounts[0]
     }
   } catch (err) {
     if (isInteractionNeeded(err)) {
@@ -34,7 +36,8 @@ export const getAccessToken = async () => {
 
       return {
         token: interactiveResult.accessToken,
-        name: allAccounts[0].name
+        idToken: interactiveResult.idToken,
+        account: allAccounts[0]
       }
     } else {
       throw err;
@@ -54,3 +57,21 @@ export const isInteractionNeeded = (error) => {
     error.message.indexOf('no_account_in_silent_request') > -1
   );
 };
+
+export const parseJwt = (token) => {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+export const getRolesFromParsedJwt = (parsedJWT) => {
+  if (parsedJWT?.roles instanceof Array) {
+    return parsedJWT?.roles[0]?.toUpperCase();
+  } else{
+    return parsedJWT?.roles?.toUpperCase();
+  }
+}
