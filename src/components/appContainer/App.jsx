@@ -1,13 +1,16 @@
 import React from 'react';
-import { Provider as AuthProvider } from '../../context/AuthContext'
-import {MainNav} from '../general/Navbar';
+import { Provider as AuthProvider } from '../../context/AuthContext';
+import { Provider as NotificationsProvider } from '../../context/NotificationsContext';
+import { MainNav } from '../general/Navbar';
 
-export const AppContainer = ({ children }) => {
+export const AppContainer = ({children}) => {
 
   return (
-    <AuthProvider>
-      <MainNav/>
-      { children }
-    </AuthProvider>
+    <NotificationsProvider>
+      <AuthProvider>
+        <MainNav/>
+        {children}
+      </AuthProvider>
+    </NotificationsProvider>
   );
 };

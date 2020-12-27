@@ -36,8 +36,9 @@ const authReducer = (state, action) => {
 
 const signIn = (dispatch) => async () => {
   const {token, account, idToken} = await getAccessToken();
-  const parsedJWT = parseJwt(idToken)
-  const userRole = getRolesFromParsedJwt(parsedJWT)
+  const parsedJWT = parseJwt(idToken);
+  const userRole = getRolesFromParsedJwt(parsedJWT);
+
   dispatch({
     type: TYPES.LOGIN,
     payload: {
