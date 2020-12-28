@@ -1,0 +1,41 @@
+@import './variables';
+
+body {
+  color: $FONT_DEFAULT_COLOR;
+}
+
+.h-main-segment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.h-flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.h-flex-column {
+  display: flex;
+  flex-direction: row;
+}
+
+.h-flex-row-reversed {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.h-flex-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.h-font-weight-bold {
+  font-weight: $FONT_WEIGHT_BOLD;
+}
+
+.h-font-weight-light {
+  font-weight: $FONT_WEIGHT_LIGHT;
+}

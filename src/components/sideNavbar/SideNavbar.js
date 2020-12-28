@@ -1,10 +1,10 @@
-import React, {lazy, Suspense, useState, useContext} from 'react';
-import {Grid, Icon, Menu, Segment, Sidebar} from 'semantic-ui-react';
-import { Context as AuthContext } from '../../context/AuthContext'
+import React, { lazy, Suspense, useState } from 'react';
+import { Grid, Icon, Menu, Segment, Sidebar } from 'semantic-ui-react';
 import { Dashboards } from '../dashboards/Dashboards';
+import BLUE_LOGO from '../../assets/icons/assets-logo-icon.png';
 
-const GHubProfile = lazy(() => import('@data-portal/app-one'))
-const Counter = lazy(() => import('@data-portal/app-two'))
+const GHubProfile = lazy(() => import('@data-portal/app-one'));
+const Counter = lazy(() => import('@data-portal/app-two'));
 
 const Segments = {
   HOME: 'HOME',
@@ -14,7 +14,6 @@ const Segments = {
 
 export const SideNavbar = () => {
   const [visibleSegment, setVisibleSegment] = useState(Segments.HOME);
-  const { state: { username, isAuthenticated, errorMessage }, signOut, signIn } = useContext(AuthContext)
 
   const renderSegments = (name) => ({
     [Segments.HOME]: <Dashboards/>,
@@ -36,10 +35,10 @@ export const SideNavbar = () => {
             visible={true}
             width='thin'
           >
-            <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.HOME)}
+            <Menu.Item className="side-navbar-item" style={{ display: 'flex !important'}} as='a' onClick={() => setVisibleSegment(Segments.HOME)}
                        active={visibleSegment === Segments.HOME}>
-              <Icon name='home'/>
-              Home
+              <img className="side-navbar-item-logo" src={BLUE_LOGO} alt="volvo"/>
+              <span className="side-navbar-item-title">Volvo</span>
             </Menu.Item>
             <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)}
                        active={visibleSegment === Segments.APP_ONE}>

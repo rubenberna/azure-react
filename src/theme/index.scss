@@ -1,1 +1,5 @@
-@import 'scss/components/navbar';
+@import 'scss/common/variables';
+@import 'scss/common/helpers';
+@import 'scss/common/semanticUIOverwrite';
+@import 'scss/components/sideNavbar';
+@import 'scss/components/topNavbar';
