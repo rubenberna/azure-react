@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@azure/msal-browser": "^2.8.0",
+    "@data-portal/app-one": "^1.0.1",
+    "@data-portal/app-two": "^1.0.2",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -13,7 +15,7 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "reactstrap": "^8.7.1",
+    "semantic-ui-react": "^2.0.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

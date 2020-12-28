@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from './components/appContainer/App';
+import { AppContainer } from './components/appContainer/AppContainer';
 import { App } from './components/App'
 import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './theme/index.scss'
 
 ReactDOM.render(

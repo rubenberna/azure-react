@@ -8,6 +8,7 @@ export const useUserHasPermission = (permissionToCheck) => {
 
   const permissionsArray = Object.values(PERMISSIONS);
 
+  // simple permissions check in level of hierarchy
   useEffect(() => {
     if (role) {
       const userRoleIndex = permissionsArray.indexOf(role);
