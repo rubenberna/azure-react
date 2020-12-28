@@ -10,7 +10,7 @@ export const TopNavbar = () => {
     <div className="top-navbar">
       {
         isAuthenticated ?
-          <Dropdown text={<span className="h-font-weight-bold">{username}</span>}>
+          <Dropdown className="h-font-weight-bold" text={username}>
             <Dropdown.Menu>
               { role === PERMISSIONS.SUPER_ADMIN && <Dropdown.Item icon='cog' text='Admin'/>}
               <Dropdown.Divider />

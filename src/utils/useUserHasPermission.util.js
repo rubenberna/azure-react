@@ -1,21 +1,12 @@
-import { useContext, useState, useEffect } from 'react';
-import { Context as AuthContext } from '../context/AuthContext';
 import { PERMISSIONS } from '../consts/permissions.consts';
 
-export const useUserHasPermission = (permissionToCheck) => {
-  const {state: {role}} = useContext(AuthContext);
-  const [hasPermission, setHasPermission] = useState(false);
+export const userHasPermission = (permissionToCheck, role) => {
 
   const permissionsArray = Object.values(PERMISSIONS);
 
   // simple permissions check in level of hierarchy
-  useEffect(() => {
-    if (role) {
-      const userRoleIndex = permissionsArray.indexOf(role);
-      const permissionToCheckIndex = permissionsArray.indexOf(permissionToCheck);
-      setHasPermission(userRoleIndex <= permissionToCheckIndex)
-    }
-  }, [role])
+    const userRoleIndex = permissionsArray.indexOf(role);
+    const permissionToCheckIndex = permissionsArray.indexOf(permissionToCheck.toUpperCase());
 
-  return hasPermission;
+    return userRoleIndex <= permissionToCheckIndex;
 };
