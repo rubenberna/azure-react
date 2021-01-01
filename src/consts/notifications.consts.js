@@ -1,3 +1,3 @@
 export const DEFAULT_NOTIFICATIONS = {
-  notAllowed: 'Not allowed'
+  notAllowed: 'Not so fast!'
 }

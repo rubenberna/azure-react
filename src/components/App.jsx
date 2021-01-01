@@ -1,24 +1,35 @@
 import React, { Suspense, useContext, useEffect } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import history from '../config/history';
 import { Context as AuthContext } from '../context/AuthContext';
+import { Context as NotificationsContext } from '../context/NotificationsContext';
 import { Dashboard } from './dashboard/Dashboard';
 import { GenericTemplate } from './genericTemplate';
 import { useGetDashboards } from '../utils/useGetDashboards';
 import { TopNavbar } from './topNavbar/TopNavbar';
 import { SideNavbar } from './sideNavbar/SideNavbar';
-import history from '../config/history';
+import { activate, Notifications } from './notifications/Notifications';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export const App = () => {
   const {signIn} = useContext(AuthContext);
+  const {state: {message, visible}} = useContext(NotificationsContext);
   const {dashBoardsList} = useGetDashboards();
 
   useEffect(() => {
     signIn();
   }, []);
 
+  useEffect(() => {
+    if (message && visible) {
+      activate(message);
+    }
+  }, [message, visible]);
+
   return (
     <BrowserRouter history={history}>
+      <Notifications/>
       <TopNavbar/>
       <SideNavbar/>
       <Switch>
@@ -34,7 +45,7 @@ export const App = () => {
           ))}
         </Suspense>
         <Route path="*">
-          <Redirect to="/" />
+          <Redirect to="/"/>
         </Route>
       </Switch>
     </BrowserRouter>
