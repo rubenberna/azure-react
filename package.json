@@ -4,8 +4,8 @@
   "private": true,
   "dependencies": {
     "@azure/msal-browser": "^2.8.0",
-    "@data-portal/app-one": "^1.0.1",
-    "@data-portal/app-two": "^1.0.2",
+    "@data-portal/app-one": "^1.0.2",
+    "@data-portal/app-two": "^1.0.3",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

@@ -29,7 +29,7 @@ export const App = () => {
               path={dashboard.slug}
               exact
               key={dashboard.slug}
-              render={() => <GenericTemplate>{dashboard.component}</GenericTemplate>}
+              render={() => <GenericTemplate dashboard={dashboard}>{dashboard.component}</GenericTemplate>}
             />
           ))}
         </Suspense>

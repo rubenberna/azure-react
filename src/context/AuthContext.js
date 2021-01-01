@@ -6,7 +6,7 @@ const TYPES = {
   LOGIN: 'auth/login',
   SIGN_OUT: 'auth/signOut',
   CLEAR_ERROR: 'auth/clearError',
-  SET_USER: 'auth/setUser'
+  SET_USER: 'auth/setUser',
 };
 
 const initialState = {
@@ -28,7 +28,7 @@ const authReducer = (state, action) => {
     case TYPES.SIGN_OUT:
       return initialState;
     case TYPES.SET_USER:
-      return {...state, username: action.payload};
+      return {...state, username: action.payload}
     default:
       return state;
   }
@@ -57,8 +57,15 @@ const signOut = (dispatch) => async () => {
   });
 };
 
+const changeName = (dispatch) => () => {
+  dispatch({
+    type: TYPES.SET_USER,
+    payload: 'Ambrosio'
+  })
+}
+
 export const {Provider, Context} = createDataContext(
   authReducer,
-  {signIn, signOut},
+  {signIn, signOut, changeName},
   initialState
 );

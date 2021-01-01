@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import { Divider, Menu } from 'semantic-ui-react';
+import { Menu, Sidebar } from 'semantic-ui-react';
 import { useGetDashboards } from '../../utils/useGetDashboards';
 import { Context as NotificationsContext } from '../../context/NotificationsContext';
 import { userHasPermission } from '../../utils/useUserHasPermission.util';
 import VolvoIcon from '../../assets/icons/assets-logo-icon.png';
 import { Context as AuthContext } from '../../context/AuthContext';
 import { PERMISSIONS } from '../../consts/permissions.consts';
+import { isBase64encoded } from '../../utils/_general.util';
+import { DEFAULT_NOTIFICATIONS } from '../../consts/notifications.consts';
 
 
 const defaultHome = {
@@ -24,70 +26,38 @@ export const SideNavbar = () => {
   const {setNotification} = useContext(NotificationsContext);
 
   const navigate = (requiredPermission, link) => {
-    setVisibleSegment(link)
+    setVisibleSegment(link);
     if (requiredPermission && role) {
-      userHasPermission(requiredPermission[0], role) && history.push(link);
+      if (userHasPermission(requiredPermission, role)) {
+        history.push(link)
+      } else {
+        setNotification(DEFAULT_NOTIFICATIONS.notAllowed)
+      }
     }
   };
 
   return (
-    <div className="side-navbar">
-      {[defaultHome, ...dashBoardsList].map(dashboard => (
-        <>
-          <Menu.Item
-            className="side-navbar-item"
-            as='a'
-            key={dashboard.slug}
-            active={visibleSegment === dashboard.slug }
-            onClick={() => navigate(dashboard.requiredPermissions, dashboard.slug)}>
-            <img className="side-navbar-item-logo" src={dashboard.icon} alt={dashboard.title}/>
-            <span className="side-navbar-item-title">{dashboard.title}</span>
-          </Menu.Item>
-          <Divider/>
-        </>
+    <Sidebar
+      as={Menu}
+      animation='overlay'
+      direction='left'
+      icon='labeled'
+      inverted
+      vertical
+      visible={true}
+      width='thin'>
+      {[defaultHome, ...dashBoardsList].map((dashboard) => (
+        <Menu.Item
+          key={dashboard.slug}
+          className="side-navbar-item"
+          as='a'
+          active={visibleSegment === dashboard.slug}
+          onClick={() => navigate(dashboard.requiredPermissions, dashboard.slug)}>
+          <img className="side-navbar-item-logo" src={isBase64encoded(dashboard.icon) ? `data:image/jpeg;base64,${dashboard.icon}` : dashboard.icon} alt={dashboard.title}/>
+          <span>{dashboard.title}</span>
+        </Menu.Item>
       ))}
-    </div>
+    </Sidebar>
   );
 };
 
-
-// <Grid columns={1}>
-//   <Grid.Column>
-//     <Sidebar.Pushable as={Segment} style={{minHeight: '100vh'}}>
-//       <Sidebar
-//         as={Menu}
-//         animation='overlay'
-//         direction='left'
-//         icon='labeled'
-//         inverted
-//         vertical
-//         visible={true}
-//         width='thin'
-//       >
-//         <Menu.Item className="side-navbar-item" as='a'
-//                    onClick={() => setVisibleSegment(Segments.HOME)}
-//                    active={visibleSegment === Segments.HOME}>
-//           <img className="side-navbar-item-logo" src={BLUE_LOGO} alt="volvo"/>
-//           <span className="side-navbar-item-title">Volvo</span>
-//         </Menu.Item>
-//         <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_ONE)}
-//                    active={visibleSegment === Segments.APP_ONE}>
-//           <Icon name='font'/>
-//           Npm package
-//         </Menu.Item>
-//         <Menu.Item as='a' onClick={() => setVisibleSegment(Segments.APP_TWO)}
-//                    active={visibleSegment === Segments.APP_TWO}>
-//           <Icon name='bold'/>
-//           Npm package
-//         </Menu.Item>
-//       </Sidebar>
-//       <Sidebar.Pusher>
-//         <Suspense fallback={<div>Loading...</div>}>
-//           <div className="h-main-segment">
-//             {renderSegments(visibleSegment)}
-//           </div>
-//         </Suspense>
-//       </Sidebar.Pusher>
-//     </Sidebar.Pushable>
-//   </Grid.Column>
-// </Grid>

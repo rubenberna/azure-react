@@ -14,7 +14,7 @@ export const useGetDashboards = () => {
     {
       title: appOneMetadata.title,
       description: appOneMetadata.description,
-      slug: convertToKebabCase(appOneMetadata.title),
+      slug: `/${convertToKebabCase(appOneMetadata.title)}`,
       requiredPermissions: appOneMetadata.requiredPermissions,
       icon: appOneMetadata.icon,
       component: <GHubProfile title="GitHub finder" state={state}/>

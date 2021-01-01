@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { Context as AuthContext } from '../../context/AuthContext';
+import { usePrivateRoute } from '../../utils/useUserHasPermission.util';
 
-export const GenericTemplate = ({children}) => {
+export const GenericTemplate = ({children, dashboard}) => {
+  const {state: {role}} = useContext(AuthContext);
+  usePrivateRoute(dashboard.requiredPermissions, role);
+
   return (
     <div className="h-main-segment">
-      <h2>Genericss</h2>
       {children}
     </div>
   );
+};
+
+GenericTemplate.propTypes = {
+  dasboard: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    requiredPermissions: PropTypes.array,
+    icon: PropTypes.string,
+  })
 };

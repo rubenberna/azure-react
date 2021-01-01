@@ -1,5 +1,6 @@
 @import 'scss/common/variables';
 @import 'scss/common/helpers';
 @import 'scss/common/semanticUIOverwrite';
-@import 'scss/components/sideNavbar';
-@import 'scss/components/topNavbar';
+@import 'scss/components/sideNavbar.style';
+@import 'scss/components/topNavbar.style';
+@import 'scss/components/dashboard.style';

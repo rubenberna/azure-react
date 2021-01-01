@@ -1,0 +1,18 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: $UNIT / 2;
+  margin-top: $UNIT;
+}
+
+.dashboard-card {
+  @extend .h-flex-row;
+  justify-content: space-between;
+  img {
+    width: 25px;
+  }
+}
+
+.ui.link.card {
+  margin: 0;
+}
