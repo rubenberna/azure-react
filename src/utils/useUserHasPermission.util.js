@@ -31,3 +31,20 @@ export const usePrivateRoute = (permissionToCheck, role) => {
     }
   }, [permissionToCheck, role]);
 };
+
+export const useProtectedNavigation = () => {
+  const history = useHistory();
+  const {setNotification} = useContext(NotificationsContext);
+
+  const navigateSafely = (requiredPermission, role, link) => {
+    if (requiredPermission && role) {
+      if (userHasPermission(requiredPermission, role)) {
+        history.push(link)
+      } else {
+        setNotification(DEFAULT_NOTIFICATIONS.notAllowed)
+      }
+    }
+  }
+
+  return { navigateSafely }
+}
