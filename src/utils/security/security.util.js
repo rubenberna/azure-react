@@ -1,5 +1,5 @@
 import { PublicClientApplication } from '@azure/msal-browser';
-import { APP_ID, AZURE_AUTHORITY } from '../../config/environment';
+import { APP_ID, AZURE_AUTHORITY, SCOPES } from '../../config/environment';
 
 const MSAL_CONFIG = {
   auth: {
@@ -9,6 +9,8 @@ const MSAL_CONFIG = {
     postLogoutRedirectUri: window.location.origin,
   },
 };
+
+console.log(SCOPES.split(', '));
 
 export const azureProvider = new PublicClientApplication(MSAL_CONFIG);
 export const scopeRequestConfig = {
