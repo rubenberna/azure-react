@@ -1,5 +1,5 @@
 import { PublicClientApplication } from '@azure/msal-browser';
-import { APP_ID, AZURE_AUTHORITY, SCOPES } from '../config/environment';
+import { APP_ID, AZURE_AUTHORITY, SCOPES } from '../../config/environment';
 
 const MSAL_CONFIG = {
   auth: {

@@ -1,8 +1,8 @@
 import { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { PERMISSIONS } from '../consts/permissions.consts';
-import { Context as NotificationsContext } from '../context/NotificationsContext';
-import { DEFAULT_NOTIFICATIONS } from '../consts/notifications.consts';
+import { PERMISSIONS } from '../../consts/permissions/permissions.consts';
+import { Context as NotificationsContext } from '../../context/notifications/NotificationsContext';
+import { DEFAULT_NOTIFICATIONS } from '../../consts/notifications/notifications.consts';
 
 export const userHasPermission = (permissionToCheck, role) => {
   const permissionsArray = Object.values(PERMISSIONS);
@@ -14,22 +14,6 @@ export const userHasPermission = (permissionToCheck, role) => {
   if (userRoleIndex < 0) return false
   if (permissionToCheck.includes(role)) return true
   return userRoleIndex <= permissionToCheckIndex;
-};
-
-export const usePrivateRoute = (permissionToCheck, role) => {
-  const {setNotification} = useContext(NotificationsContext);
-  const history = useHistory();
-
-  useEffect(() => {
-    if (!role) {
-      setNotification(DEFAULT_NOTIFICATIONS.notAllowed)
-      history.push('/');
-    }
-    if (role && permissionToCheck) {
-      setNotification(DEFAULT_NOTIFICATIONS.notAllowed)
-      !userHasPermission(permissionToCheck, role) && history.push('/');
-    }
-  }, [permissionToCheck, role]);
 };
 
 export const useProtectedNavigation = () => {
@@ -48,3 +32,21 @@ export const useProtectedNavigation = () => {
 
   return { navigateSafely }
 }
+
+export const usePrivateRoute = (permissionToCheck, role) => {
+  const {setNotification} = useContext(NotificationsContext);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!role) {
+      setNotification(DEFAULT_NOTIFICATIONS.notAllowed)
+      history.push('/');
+    }
+    if (role && permissionToCheck) {
+      if (!userHasPermission(permissionToCheck, role)) {
+        history.push('/');
+        setNotification(DEFAULT_NOTIFICATIONS.notAllowed)
+      }
+    }
+  }, [permissionToCheck, role]);
+};

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Provider as AuthProvider } from '../../context/AuthContext';
-import { Provider as NotificationsProvider } from '../../context/NotificationsContext';
+import { Provider as AuthProvider } from '../../context/auth/AuthContext';
+import { Provider as NotificationsProvider } from '../../context/notifications/NotificationsContext';
 
 export const AppContainer = ({children}) => {
   return (

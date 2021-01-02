@@ -1,13 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from "react-router-dom";
 import { Menu, Sidebar } from 'semantic-ui-react';
-import { useGetDashboards } from '../../utils/useGetDashboards';
-import { Context as NotificationsContext } from '../../context/NotificationsContext';
-import { useProtectedNavigation } from '../../utils/useUserHasPermission.util';
+import { useGetDashboards } from '../../utils/dashboard/useGetDashboards';
+import { useProtectedNavigation } from '../../utils/permissions/useUserHasPermission.util';
 import VolvoIcon from '../../assets/icons/assets-logo-icon.png';
-import { Context as AuthContext } from '../../context/AuthContext';
-import { PERMISSIONS } from '../../consts/permissions.consts';
-import { isBase64encoded } from '../../utils/_general.util';
+import { Context as AuthContext } from '../../context/auth/AuthContext';
+import { PERMISSIONS } from '../../consts/permissions/permissions.consts';
+import { isBase64encoded } from '../../utils/general/_general.util';
 
 
 const defaultHome = {

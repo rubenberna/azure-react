@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button } from 'semantic-ui-react'
-import { Context as AuthContext } from '../../context/AuthContext';
-import { useGetDashboards } from '../../utils/useGetDashboards';
+import { Context as AuthContext } from '../../context/auth/AuthContext';
+import { useGetDashboards } from '../../utils/dashboard/useGetDashboards';
 import { DashboardCard } from './DashboardCard';
 
 export const Dashboard = () => {

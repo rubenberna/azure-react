@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Dropdown } from 'semantic-ui-react';
-import { Context as AuthContext } from '../../context/AuthContext';
+import { Context as AuthContext } from '../../context/auth/AuthContext';
 
 export const TopNavbar = () => {
   const {state: {username, isAuthenticated}, signOut, signIn} = useContext(AuthContext);

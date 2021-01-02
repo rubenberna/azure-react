@@ -9,6 +9,6 @@ export const Notifications = () => (
   />
 );
 
-export const activate = toast
+export const activateToast = toast
 
 

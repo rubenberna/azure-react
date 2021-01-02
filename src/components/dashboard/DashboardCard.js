@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { isBase64encoded} from '../../utils/_general.util';
-import { useProtectedNavigation } from '../../utils/useUserHasPermission.util';
-import { Context as AuthContext } from '../../context/AuthContext';
+import { isBase64encoded} from '../../utils/general/_general.util';
+import { useProtectedNavigation } from '../../utils/permissions/useUserHasPermission.util';
+import { Context as AuthContext } from '../../context/auth/AuthContext';
 
 export const DashboardCard = ({dasboard}) => {
   const {state: {role}} = useContext(AuthContext);

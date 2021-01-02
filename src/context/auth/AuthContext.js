@@ -1,5 +1,5 @@
-import createDataContext from './createDataContext';
-import { azureProvider, getAccessToken, getRolesFromParsedJwt, parseJwt } from '../utils/security.util';
+import createDataContext from '../createDataContext';
+import { azureProvider, getAccessToken, getRolesFromParsedJwt, parseJwt } from '../../utils/security/security.util';
 
 const TYPES = {
   ADD_ERROR: 'auth/add_error',
